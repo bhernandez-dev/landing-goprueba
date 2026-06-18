@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowUpRight, Award, Crown, X } from 'lucide-react'
+import { ArrowUpRight, Award, Crown, X, Zap, Shield, Star } from 'lucide-react'
 
 const VIDEO_URL =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260606_154941_df1a96e1-a06f-450c-bd02-d863414cc1a0.mp4'
@@ -12,11 +12,49 @@ const STATS = [
   { value: '10+', label: 'Years in the Game' },
 ]
 
+const OFFERS = [
+  {
+    icon: Zap,
+    tag: 'Most Popular',
+    name: 'Brand Sprint',
+    price: '$2,900',
+    period: 'one-time',
+    description: 'Full brand identity delivered in 7 days. Logo, palette, typography, and brand guidelines.',
+    features: ['Logo Suite (3 variants)', 'Color System', 'Typography Stack', 'Brand Guidelines PDF'],
+    cta: 'GET STARTED',
+    highlight: false,
+  },
+  {
+    icon: Star,
+    tag: 'Best Value',
+    name: 'Brand Domination',
+    price: '$7,500',
+    period: 'one-time',
+    description: 'Complete brand overhaul plus a high-converting landing page built to win.',
+    features: ['Everything in Brand Sprint', 'Landing Page Design', 'Motion Brand Assets', '30-Day Support'],
+    cta: 'CLAIM OFFER',
+    highlight: true,
+  },
+  {
+    icon: Shield,
+    tag: 'Ongoing',
+    name: 'Brand Retainer',
+    price: '$1,800',
+    period: '/ month',
+    description: 'Your brand, always sharp. Dedicated design bandwidth every month, no briefs needed.',
+    features: ['10 Design Requests/mo', 'Priority Turnaround', 'Unlimited Revisions', 'Dedicated Slack Channel'],
+    cta: 'INQUIRE NOW',
+    highlight: false,
+  },
+]
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black">
+    <div className="relative w-full bg-black">
+      {/* ── Hero ── */}
+      <div className="relative w-full h-screen overflow-hidden">
       {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -197,6 +235,137 @@ export default function App() {
           ))}
         </div>
       </div>
+      </div>{/* end hero wrapper */}
+
+      {/* ── Offers Section ── */}
+      <section id="offerings" className="relative bg-black px-6 sm:px-10 lg:px-16 py-24 lg:py-32">
+        {/* Top rule */}
+        <div className="border-t border-white/10 mb-16 lg:mb-20" />
+
+        {/* Section header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 lg:mb-20">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Crown className="w-4 h-4 text-white/50 flex-shrink-0" />
+              <span className="font-inter text-white/50 text-xs tracking-[0.3em] uppercase">
+                Curated Packages
+              </span>
+            </div>
+            <h2
+              className="font-podium text-white uppercase leading-[0.92] tracking-tight"
+              style={{ fontSize: 'clamp(2.2rem, 5vw, 4.5rem)' }}
+            >
+              Our
+              <br />
+              Offerings.
+            </h2>
+          </div>
+          <p className="font-inter text-white/50 text-sm leading-relaxed max-w-xs md:text-right">
+            No retainers you don't need. No bloated scopes.
+            Just sharp work at the right price.
+          </p>
+        </div>
+
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+          {OFFERS.map((offer) => {
+            const Icon = offer.icon
+            return (
+              <div
+                key={offer.name}
+                className={`relative flex flex-col p-8 lg:p-10 group transition-colors duration-300 ${
+                  offer.highlight
+                    ? 'bg-white text-black'
+                    : 'bg-black text-white hover:bg-neutral-950'
+                }`}
+              >
+                {/* Tag */}
+                <span
+                  className={`font-inter text-[10px] tracking-widest uppercase mb-6 ${
+                    offer.highlight ? 'text-black/50' : 'text-white/40'
+                  }`}
+                >
+                  {offer.tag}
+                </span>
+
+                {/* Icon */}
+                <Icon
+                  className={`w-6 h-6 mb-8 ${
+                    offer.highlight ? 'text-black/70' : 'text-white/60'
+                  }`}
+                />
+
+                {/* Name */}
+                <h3
+                  className="font-podium uppercase leading-tight tracking-tight mb-2"
+                  style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}
+                >
+                  {offer.name}
+                </h3>
+
+                {/* Price */}
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="font-inter text-3xl font-bold tracking-tight">
+                    {offer.price}
+                  </span>
+                  <span
+                    className={`font-inter text-xs tracking-wider ${
+                      offer.highlight ? 'text-black/50' : 'text-white/40'
+                    }`}
+                  >
+                    {offer.period}
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p
+                  className={`font-inter text-sm leading-relaxed mb-8 ${
+                    offer.highlight ? 'text-black/60' : 'text-white/50'
+                  }`}
+                >
+                  {offer.description}
+                </p>
+
+                {/* Features */}
+                <ul className="space-y-2 mb-10 flex-1">
+                  {offer.features.map((feat) => (
+                    <li key={feat} className="flex items-center gap-3">
+                      <span
+                        className={`w-1 h-1 rounded-full flex-shrink-0 ${
+                          offer.highlight ? 'bg-black/40' : 'bg-white/30'
+                        }`}
+                      />
+                      <span
+                        className={`font-inter text-xs tracking-wide ${
+                          offer.highlight ? 'text-black/70' : 'text-white/60'
+                        }`}
+                      >
+                        {feat}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <a
+                  href="#"
+                  className={`inline-flex items-center justify-between gap-2 border px-5 py-3.5 text-[11px] font-inter tracking-widest uppercase transition-all duration-200 ${
+                    offer.highlight
+                      ? 'border-black/20 text-black hover:bg-black/5'
+                      : 'border-white/20 text-white hover:border-white/50 hover:bg-white/5'
+                  }`}
+                >
+                  {offer.cta}
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Bottom rule */}
+        <div className="border-t border-white/10 mt-16 lg:mt-20" />
+      </section>
     </div>
   )
 }
